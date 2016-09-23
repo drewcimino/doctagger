@@ -1,5 +1,13 @@
 class Document < ActiveRecord::Base
+  has_many :tags, dependent: :destroy
+
   validates :provided_tags, :content, presence: true
+  after_save :populate_tags#, if: :provided_tags_changed?
+
+  def populate_tags
+    tags.destroy_all
+    self.tags = Tag.create(tag_list.map { |tag| tag_matches(tag) }.flatten)
+  end
 
   def tag_matches(tag_phrase)
     scan_text    = content.dup

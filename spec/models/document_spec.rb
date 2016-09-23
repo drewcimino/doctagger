@@ -46,4 +46,16 @@ describe Document do
       end
     end
   end
+
+  describe '#populate_tags' do
+    before(:each) { document.tags.destroy_all }
+
+    it 'creates new tag objects' do
+      expect { document.populate_tags }.to change(Tag, :count).by(3)
+    end
+
+    it 'creates tags that belong to the document' do
+      expect(document.populate_tags.map(&:document).uniq).to contain_exactly(document)
+    end
+  end
 end
