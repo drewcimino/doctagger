@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe Document do
   let(:params) { { provided_tags: 'layer, Active Record, README', content: 'Sample README Content? Active Record has more than one layer. Some other words.' } }
-  let(:document) { Document.create(params) }
+  let(:document) { FactoryGirl.create(:document) }
 
-  describe 'instance' do
-    subject { document }
+  describe '.create' do
+    subject { Document.create(params) }
 
     context 'with valid inputs' do
       it { is_expected.to respond_to :provided_tags }
@@ -38,16 +38,11 @@ describe Document do
     end
 
     context 'when the provided tag occurs multiple times' do
-      let(:params) do
-        {
-          provided_tags: 'layer, Active Record, README',
-          content: 'Sample README Content? The Active Record README has more than one layer. Some other words about README.'
-        }
-      end
+      let(:document) { FactoryGirl.create(:document, content: 'Sample README Content? The Active Record README has more than one layer. Some other words about README.') }
 
       describe '#count' do
-        subject(:match_count) { matches.count }
-        it { is_expected.to eq params[:content].scan(tag_phrase).count }
+        subject { matches.count }
+        it { is_expected.to eq document.content.scan(tag_phrase).count }
       end
     end
   end
