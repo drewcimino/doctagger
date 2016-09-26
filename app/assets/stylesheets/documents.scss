@@ -1,0 +1,19 @@
+// Place all the styles related to the Documents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#upload_menu {
+  float: right;
+  width: 300px;
+}
+
+#document_listing {
+  width: 75%;
+  /*background-color: red;*/
+}
+
+.dropdown-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

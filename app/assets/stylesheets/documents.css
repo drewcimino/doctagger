@@ -1,0 +1,25 @@
+#upload_menu {
+  float: right;
+  width: 300px;
+}
+
+#document_listing {
+  width: 75%;
+}
+
+#document_table {
+    width: 100%;
+}
+
+td.timestamp, td.actions {
+    width: 10%;
+    text-align: center;
+}
+
+td.tag-frequency {
+    width: 80%;
+}
+
+.tag-chart {
+    height: 120px;
+}

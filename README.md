@@ -15,10 +15,6 @@ Is pretty standard. Clone the repo, then:
 
 === TODO
 
-* Build Documents controller
-
-* Build Documents view
-
 * Add Paperclip to Document for uploading files
 
 * Add doc(x) parsing for populating Document#content from PaperClip attachments

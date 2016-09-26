@@ -3,8 +3,14 @@
 <head>
   <title>Doctagger</title>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application' %>
 </head>
 <body>
+
+<div id="header">
+    <img id="logo" src= <%= asset_path 'green_circle_smaller.svg' %> alt="Impact Mapper">
+</div>
 
 <%= yield %>
 
