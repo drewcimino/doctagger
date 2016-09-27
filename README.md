@@ -17,5 +17,3 @@ Is pretty standard. Clone the repo, then:
 Add .doc parsing for populating Document#content from PaperClip attachments
 
 * Switch to acts-as-taggable-on. It makes searching and sorting by tag very simple and has several features that would scale the Document tagging system much more efficiently, but we can cross that bridge when we get there.
-
-* Fix Document#tag_match to not remove each tag as it's found. There's an issue if a single sentence contains th tag-phrase twice - the first sentence of the context for the second tag will have the tag-phrase that was targeted by the first tag missing. Do this by rewriting content parser to break up the whole document into sentences, and then for each sentence, create a Tag `sentence.scan(/tag_phrase/).count` times.

@@ -9,6 +9,9 @@ class Document < ActiveRecord::Base
   after_save :parse_original_document_content
   after_save :populate_tags
 
+  # One or more non-stop characters followed by one or more stop character (.?!)
+  SINGLE_SENTENCE_REGEX = /[^\.\?\!]+[\.\?\!]/.freeze
+
   def parse_original_document_content
     parsed_doc = Docx::Document.open(original_document.path)
     update_column :content, parsed_doc.paragraphs.map(&:text).join(' ')
@@ -20,12 +23,13 @@ class Document < ActiveRecord::Base
   end
 
   def tag_matches(tag_phrase)
-    scan_text    = content.dup
     matched_tags = []
+    sentences    = content.scan(SINGLE_SENTENCE_REGEX).map(&:strip)
 
-    while match_data = scan_text.match(/([\.\?\!])?[^\.\?\!]*#{tag_phrase}[^\.\?\!]*[\.\?\!]*[^\.\?\!]*[\.\?\!]*/i)
-      matched_tags << { label: tag_phrase, context: match_data[0].sub(/^[\.\?\!]/,'').strip }
-      scan_text.sub! /#{tag_phrase}/i, ''
+    sentences.each_with_index do |sentence, sentence_position|
+      sentence.scan(tag_phrase).count.times do
+        matched_tags << { label: tag_phrase, context: "#{sentence} #{sentences[sentence_position + 1]}"}
+      end
     end
 
     matched_tags
