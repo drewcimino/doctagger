@@ -13,3 +13,5 @@
 /tmp
 .byebug_history
 .rspec
+public/system
+public/assets
