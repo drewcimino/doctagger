@@ -31,4 +31,5 @@ $(document).ready(function(){
             }]
         });
     });
+    $('tr:nth-child(odd) > td.tag-frequency > div.tag-chart > div.highcharts-container > svg > rect').attr('fill', '#f2f2f2')
 });

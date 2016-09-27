@@ -19,22 +19,37 @@
 <div id="document_listing">
   <h1>Listing Documents</h1>
 
+  <% if @documents.empty? %>
+
+  Nothing to see here. Get to uploading!
+
+  <% else %>
+
   <table id="document_table">
     <thead>
       <th>Uploaded</th>
-      <th>Actions</th>
       <th>Tags</th>
+      <th>Original File</th>
     </thead>
     <tbody>
       <% @documents.each do |document| %>
         <tr>
           <td class="timestamp"><%= document.created_at.strftime('%D %R') %></td>
-          <td class="actions"><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <td class="tag-frequency">
             <div class="tag-chart" tag-data-id="document_<%= document.id %>"></div>
+          </td>
+          <td class="actions">
+            <p class='file-name'><%= document.original_document_file_name %></p>
+            <p>
+              <span class='download-link'><%= link_to 'Download', document.original_document.url %></span>
+              <span class='destroy-link'><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+            </p>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <% end %>
+
 </div>
