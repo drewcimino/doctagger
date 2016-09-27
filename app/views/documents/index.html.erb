@@ -1,7 +1,7 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
-<script type='application/javascript'>
+<script type="application/javascript">
   var tagData = {};
 
   <% @documents.each do |doc| %>
@@ -10,8 +10,8 @@
 </script>
 
 <div id="upload_menu">
-  <span class="dropdown-link">[+] Upload New Document</span>
-  <div class="linked-dropdown">
+  <h3>Upload New Document</h3>
+  <div>
     <%= render 'form' %>
   </div>
   <p id="notice"><%= notice %></p>
@@ -21,23 +21,20 @@
 <div id="document_listing">
   <h1>Listing Documents</h1>
 
-  <table id='document_table'>
+  <table id="document_table">
     <thead>
-      <tr>
-        <th>Uploaded</th>
-        <th>Tags</th>
-        <th>Actions</th>
-      </tr>
+      <th>Uploaded</th>
+      <th>Actions</th>
+      <th>Tags</th>
     </thead>
-
     <tbody>
       <% @documents.each do |document| %>
         <tr>
-          <td class='timestamp'><%= document.created_at.strftime('%D %R') %></td>
-          <td class='tag-frequency'>
-            <div class='tag-chart' tag-data-id="document_<%= document.id %>"></div>
-          </td class='actions'>
-          <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class="timestamp"><%= document.created_at.strftime('%D %R') %></td>
+          <td class="actions"><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class="tag-frequency">
+            <div class="tag-chart" tag-data-id="document_<%= document.id %>"></div>
+          </td>
         </tr>
       <% end %>
     </tbody>

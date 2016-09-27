@@ -58,4 +58,16 @@ describe Document do
       expect(document.populate_tags.map(&:document).uniq).to contain_exactly(document)
     end
   end
+
+  describe '#tag_list' do
+    it 'returns an array of provided tags' do
+      expect(document.tag_list).to be_an(Array)
+      expect(document.tag_list.count).to eq(3)
+    end
+  end
+
+  describe '#tag_frequency' do
+    subject { document.tag_frequency }
+    it { is_expected.to contain_exactly({ label: 'Active Record', count: 1 }, { label:'README', count: 1 }, { label: 'layer', count: 1 }) }
+  end
 end

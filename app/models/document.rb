@@ -20,4 +20,12 @@ class Document < ActiveRecord::Base
 
     matched_tags
   end
+
+  def tag_frequency
+    tag_list.map { |tag| { label: tag, count: tags.where(label: tag).count } }
+  end
+
+  def tag_list
+    provided_tags.split(',').map(&:strip)
+  end
 end
