@@ -13,8 +13,16 @@ class Document < ActiveRecord::Base
   SINGLE_SENTENCE_REGEX = /[^\.\?\!]+[\.\?\!]/.freeze
 
   def parse_original_document_content
-    parsed_doc = Docx::Document.open(original_document.path)
-    update_column :content, parsed_doc.paragraphs.map(&:text).join(' ')
+    # So we're going to use an if/else right now, but I swear the third parse method is sending all this into a service object.
+    if original_document_file_name.match /\.docx\z/
+      parsed_content = Docx::Document.open(original_document.path).paragraphs.map(&:text).join(' ')
+    elsif original_document_file_name.match /\.doc\z/
+      parsed_content = DocRipper::rip(original_document.path)
+    else
+      raise "Attempted to parse disallowed filetype .#{original_document.path.split('.').last}"
+    end
+
+    update_column :content, parsed_content
   end
 
   def populate_tags

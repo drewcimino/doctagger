@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe Document do
-  let(:params) { { provided_tags: 'layer, Active Record, README', original_document: Rack::Test::UploadedFile.new('spec/fixtures/test_word_document.docx') } }
+  let(:params) { { provided_tags: 'layer, Active Record, README', original_document: original_file } }
+  let(:original_file) { Rack::Test::UploadedFile.new('spec/fixtures/test_word_document.docx') }
   let(:document) { FactoryGirl.create(:document) }
 
   describe '.create' do
@@ -21,6 +22,11 @@ describe Document do
     context 'without content' do
       let(:params) { { provided_tags: 'layer, Active Record, README' } }
       it { is_expected.to be_invalid }
+    end
+
+    context 'with an old .doc file' do
+      let(:original_file) { Rack::Test::UploadedFile.new('spec/fixtures/test_old_word_document.doc') }
+      it { is_expected.to be_valid }
     end
   end
 
@@ -77,6 +83,15 @@ describe Document do
     it 'writes the file contents to Document#content' do
       document.parse_original_document_content
       expect(document.content).to eq('Sample README Content? Active Record has more than one layer. Some other words.')
+    end
+
+    context 'with an old .doc file' do
+      let(:original_file) { Rack::Test::UploadedFile.new('spec/fixtures/test_old_word_document.doc') }
+
+      it 'writes the file contents to Document#content' do
+        document.parse_original_document_content
+        expect(document.content).to eq('Sample README Content? Active Record has more than one layer. Some other words.')
+      end
     end
   end
 end
