@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
       if @document.save
         format.html { redirect_to :back, notice: 'Document was successfully created.' }
       else
-        format.html { redirect_to :back, alert: 'There was a problem creating your document.' }
+        format.html { redirect_to :back, alert: "Document Errors: #{@new_document.errors.full_messages.join(', ')}" }
       end
     end
   end

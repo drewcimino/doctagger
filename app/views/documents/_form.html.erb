@@ -1,15 +1,4 @@
 <%= form_for(@new_document) do |f| %>
-  <% if @new_document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@new_document.errors.count, "error") %> prohibited this document from being saved:</h2>
-      <ul>
-      <% @new_document.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="field">
     <%= f.label :provided_tags, 'Tags (comma-separated)' %><br>
     <%= f.text_field :provided_tags, size: 30 %>
@@ -21,4 +10,7 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <p id="notice"><%= notice %></p>
+  <p id="alert"><%= alert %></p>
 <% end %>
