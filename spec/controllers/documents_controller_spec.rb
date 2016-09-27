@@ -43,7 +43,7 @@ describe DocumentsController do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved document as @new_document' do
         post :create, { document: invalid_attributes }, session: valid_session
-        expect(assigns(:document)).to be_a_new(Document)
+        expect(assigns(:new_document)).to be_a_new(Document)
       end
 
       it 'redirects to the home page' do

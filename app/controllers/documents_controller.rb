@@ -5,10 +5,10 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = Document.new(document_params)
+    @new_document = Document.new(document_params)
 
     respond_to do |format|
-      if @document.save
+      if @new_document.save
         format.html { redirect_to :back, notice: 'Document was successfully created.' }
       else
         format.html { redirect_to :back, alert: "Document Errors: #{@new_document.errors.full_messages.join(', ')}" }
