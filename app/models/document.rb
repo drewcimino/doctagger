@@ -18,7 +18,6 @@ class Document < ActiveRecord::Base
   end
 
   def populate_tags
-    tags.destroy_all
     self.tags = Tag.create(tag_list.map { |tag| tag_matches(tag) }.flatten)
   end
 
