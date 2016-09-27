@@ -1,11 +1,11 @@
-<%= form_for(@new_document) do |f| %>
+<%= form_for @new_document, url: documents_path, html: { multipart: true } do |f| %>
   <div class="field">
     <%= f.label :provided_tags, 'Tags (comma-separated)' %><br>
     <%= f.text_field :provided_tags, size: 30 %>
   </div>
   <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+    <%= f.label :original_document, 'Upload File (doc/docx)' %><br>
+    <%= f.file_field :original_document, as: :file %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -27,6 +27,6 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:provided_tags, :content)
+    params.require(:document).permit(:provided_tags, :original_document)
   end
 end

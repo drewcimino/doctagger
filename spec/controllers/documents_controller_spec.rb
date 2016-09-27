@@ -8,13 +8,13 @@ describe DocumentsController do
     { provided_tags: 10 }
   }
   let(:valid_attributes) {
-    { provided_tags: 'layer, README, Active Record', content: 'This is a README about Active Record. Ogres have layers.' }
+    { provided_tags: 'layer, README, Active Record', original_document: Rack::Test::UploadedFile.new('spec/fixtures/test_word_document.docx') }
   }
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'assigns all documents as @documents' do
-      document = Document.create! valid_attributes
+      document = FactoryGirl.create(:document)
       get :index, {}, session: valid_session
       expect(assigns(:documents)).to eq([document])
     end
@@ -61,7 +61,7 @@ describe DocumentsController do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested document' do
-      document = Document.create! valid_attributes
+      document = FactoryGirl.create(:document)
       expect {
         delete :destroy, { id: document.to_param }, session: valid_session
       }.to change(Document, :count).by(-1)

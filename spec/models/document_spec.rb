@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Document do
-  let(:params) { { provided_tags: 'layer, Active Record, README', content: 'Sample README Content? Active Record has more than one layer. Some other words.' } }
+  let(:params) { { provided_tags: 'layer, Active Record, README', original_document: Rack::Test::UploadedFile.new('spec/fixtures/test_word_document.docx') } }
   let(:document) { FactoryGirl.create(:document) }
 
   describe '.create' do
@@ -69,5 +69,14 @@ describe Document do
   describe '#tag_frequency' do
     subject { document.tag_frequency }
     it { is_expected.to contain_exactly({ label: 'Active Record', count: 1 }, { label:'README', count: 1 }, { label: 'layer', count: 1 }) }
+  end
+
+  describe '#parse_original_document_content' do
+    before(:each) { document.update_column :content, '' }
+
+    it 'writes the file contents to Document#content' do
+      document.parse_original_document_content
+      expect(document.content).to eq('Sample README Content? Active Record has more than one layer. Some other words.')
+    end
   end
 end

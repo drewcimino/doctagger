@@ -14,9 +14,7 @@ Is pretty standard. Clone the repo, then:
 
 ### TODO
 
-* Add Paperclip to Document for uploading files
-
-* Add doc(x) parsing for populating Document#content from PaperClip attachments
+Add .doc parsing for populating Document#content from PaperClip attachments
 
 * Switch to acts-as-taggable-on. It makes searching and sorting by tag very simple and has several features that would scale the Document tagging system much more efficiently, but we can cross that bridge when we get there.
 
