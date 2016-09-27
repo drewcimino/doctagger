@@ -2,7 +2,7 @@ class Document < ActiveRecord::Base
   has_many :tags, dependent: :destroy
 
   validates :provided_tags, :content, presence: true
-  after_save :populate_tags#, if: :provided_tags_changed?
+  after_save :populate_tags
 
   def populate_tags
     tags.destroy_all
@@ -15,7 +15,7 @@ class Document < ActiveRecord::Base
 
     while match_data = scan_text.match(/([\.\?\!])?[^\.\?\!]*#{tag_phrase}[^\.\?\!]*[\.\?\!]*[^\.\?\!]*[\.\?\!]*/i)
       matched_tags << { label: tag_phrase, context: match_data[0].sub(/^[\.\?\!]/,'').strip }
-      scan_text.sub! /#{tag_phrase}/, ''
+      scan_text.sub! /#{tag_phrase}/i, ''
     end
 
     matched_tags
