@@ -34,7 +34,7 @@ class Document < ActiveRecord::Base
     sentences    = content.scan(SINGLE_SENTENCE_REGEX).map(&:strip)
 
     sentences.each_with_index do |sentence, sentence_position|
-      sentence.scan(tag_phrase).count.times do
+      sentence.scan(/#{tag_phrase}/i).count.times do
         matched_tags << { label: tag_phrase, context: "#{sentence} #{sentences[sentence_position + 1]}"}
       end
     end
