@@ -46,6 +46,15 @@
             </p>
           </td>
         </tr>
+
+        <% document.tag_list.each do |tag| %>
+          <div id="document_<%= document.id %>-<%= tag.gsub(/\s/,'-') %>-dialog" title="<%= '"' + tag + '"' %> Contexts" class='context-dialog'>
+            <ul>
+              <li><%= document.tags.where(label: tag).map(&:context).uniq.join('</li><li>').html_safe %></li>
+            </ul>
+          </div>
+        <% end %>
+
       <% end %>
     </tbody>
   </table>

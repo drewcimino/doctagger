@@ -46,3 +46,11 @@ td.tag-frequency {
 .tag-chart {
     height: 130px;
 }
+
+.context-dialog {
+    display: none;
+}
+
+.ui-dialog {
+    width: 800px !important;
+}

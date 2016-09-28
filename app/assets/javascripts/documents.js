@@ -21,9 +21,20 @@ $(document).ready(function(){
                     dataLabels: {
                         enabled: true
                     },
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                $('#' + chartId + '-' + this.category.replace(/\s/g, '-') + '-dialog').dialog();
+                            }
+                        }
+                    },
                     pointPadding: 0,
                     groupPadding: 0
                 }
+            },
+            tooltip: {
+                enabled: false
             },
             series: [{
                 data: $.map(tagData[chartId], function(tag) { return tag.count }),
